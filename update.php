@@ -1,13 +1,15 @@
 <?php
 
-require("config.php");
+	require("global.php");
 
-/*
-	This script modifies the SPACE_STATE_FILE file
-		&open=[true|false]
-	It is recommended to use HTTPS client certificates or HTTPS + HTTP AUTH as a strategy for authorizing the request.
-	-> See .htaccess.sample for an example file
-*/
+	define("OPEN_STATUS_PARAMETER", "open");
+
+	/*
+		This script modifies the SPACE_STATE_FILE file
+			&open=[true|false]
+		It is recommended to use HTTPS client certificates or HTTPS + HTTP AUTH as a strategy for authorizing the request.
+		-> See .htaccess.sample for an example file
+	*/
 
     /* This method
      	- sets HTTP headers for response
@@ -33,10 +35,6 @@ require("config.php");
     	exit($status >= 400 ? 1 : 0);
     }
 
-    function defaultSpaceState() {
-    	return array("open"=> false);
-    }
-
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
@@ -57,7 +55,7 @@ require("config.php");
 	    	}
 	    }
 
-	   	$currentJSON = $fileContents ? json_decode($fileContents, $assoc=true) : defaultSpaceState();
+	   	$currentJSON = $fileContents ? json_decode($fileContents, $assoc=true);
 	    if (json_last_error() != JSON_ERROR_NONE) {
 	    	respond(500, "Could not parse json " . SPACE_STATE_FILE);
 	    }
