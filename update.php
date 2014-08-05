@@ -48,14 +48,14 @@
 	    }
 
    	    //Read file and decode
-	    $fileContents = @file_get_contents(SPACE_STATE_FILE);
+	    $fileContents = file_get_contents(SPACE_STATE_FILE);
 	    if ($fileContents === false) {
 	    	if (!is_writable(DATA_DIR)) {
 				respond(500, "Cannot write to data dir " . DATA_DIR);
 	    	}
 	    }
 
-	   	$currentJSON = $fileContents ? json_decode($fileContents, $assoc=true);
+	   	$currentJSON = json_decode($fileContents, $assoc=true);
 	    if (json_last_error() != JSON_ERROR_NONE) {
 	    	respond(500, "Could not parse json " . SPACE_STATE_FILE);
 	    }
