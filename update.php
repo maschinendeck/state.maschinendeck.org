@@ -17,8 +17,7 @@
 		- exits
      */
     function respond($status, $errorMsg, $callback=null) {
-    	http_response_code($status);
-    	header("Content-Type: application/json");
+    	header("Content-Type: application/json", $http_response_code = $status);
 
     	$response = array("status" => $status);
     	if ($errorMsg !== null) {
