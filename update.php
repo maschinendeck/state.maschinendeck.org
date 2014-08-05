@@ -1,14 +1,13 @@
 <?php
 
+require("config.php");
+
 /*
 	This script modifies the spaceapi.json file's state.open path based on POST request
 		&open=[true|false]
 	It is recommended to use HTTPS client certificates or HTTPS + HTTP AUTH as a strategy for authorizing the request.
 	-> See .htaccess.sample for an example file
 */
-
-	define("OPEN_STATUS_PARAMETER", "open");
-	define("SPACEAPI_FILE_PATH", "./spaceapi.json");
 
     /* This method
      	- sets HTTP headers for response
