@@ -4,9 +4,13 @@ Get the state of the hackerspace.
 
 ##Endpoints
 
-###spaceapi.json
+###spaceapi.php
 
-A static JSON complying to the [SpaceAPI v13](http://spaceapi.net/documentation).
+Returns JSON complying to the [SpaceAPI v13](http://spaceapi.net/documentation).
+
+If you need a *jsonp* result, specify the `callback` parameter
+	
+	http://state.yourspace.org/spaceapi.php?callback=jsonPCallback
 
 ###update.php
 
