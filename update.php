@@ -3,7 +3,7 @@
 require("config.php");
 
 /*
-	This script modifies the spaceapi.json file's state.open path based on POST request
+	This script modifies the SPACE_STATE_FILE file
 		&open=[true|false]
 	It is recommended to use HTTPS client certificates or HTTPS + HTTP AUTH as a strategy for authorizing the request.
 	-> See .htaccess.sample for an example file
@@ -33,6 +33,10 @@ require("config.php");
     	exit($status >= 400 ? 1 : 0);
     }
 
+    function defaultSpaceState() {
+    	return array("open"=> false);
+    }
+
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
@@ -46,27 +50,29 @@ require("config.php");
 	    }
 
    	    //Read file and decode
-	    $fileContents = file_get_contents(SPACEAPI_FILE_PATH);
+	    $fileContents = @file_get_contents(SPACE_STATE_FILE);
 	    if ($fileContents === false) {
-	    	respond(500, "Could not get contents of file " . SPACEAPI_FILE_PATH);
+	    	if (!is_writable(DATA_DIR)) {
+				respond(500, "Cannot write to data dir " . DATA_DIR);
+	    	}
 	    }
 
-	   	$currentJSON = json_decode($fileContents, $assoc=true);
+	   	$currentJSON = $fileContents ? json_decode($fileContents, $assoc=true) : defaultSpaceState();
 	    if (json_last_error() != JSON_ERROR_NONE) {
-	    	respond(500, "Could not find " . SPACEAPI_FILE_PATH);
+	    	respond(500, "Could not parse json " . SPACE_STATE_FILE);
 	    }
 
-	    $currentOpenStatus = $currentJSON["state"]["open"];
+	    $currentOpenStatus = $currentJSON["open"];
 
 	    if ($currentOpenStatus != $newOpenStatus) {
 	    	
-	    	$currentJSON["state"]["open"] = (bool) $newOpenStatus;
+	    	$currentJSON["open"] = (bool) $newOpenStatus;
 	    
 	    	//Write to disk
 	    	 //Open file for writing and get a lock
-		    $fileHandle = fopen(SPACEAPI_FILE_PATH, "w");
+		    $fileHandle = fopen(SPACE_STATE_FILE, "w");
 		   	if ($fileHandle === false) {
-		   		respond(500, "Could not fopen " . SPACEAPI_FILE_PATH);
+		   		respond(500, "Could not fopen " . SPACE_STATE_FILE);
 		   	}
 		   	$fileHandle_close = function() use($fileHandle) {
 		   		fclose($fileHandle);
@@ -74,7 +80,7 @@ require("config.php");
 
 		    //Get a lock on the file
 		    if (flock($fileHandle, LOCK_EX) == false) {
-	    		respond(500, "Could not get a lock on " . SPACEAPI_FILE_PATH, $fileHandle_close);
+	    		respond(500, "Could not get a lock on " . SPACE_STATE_FILE, $fileHandle_close);
 	    	}
 	    
 	    	$encoded = json_encode($currentJSON);

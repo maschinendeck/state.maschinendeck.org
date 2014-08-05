@@ -44,8 +44,8 @@ Error
 	
 #Setup
 
-* Copy `spaceapi.json.sample` to `spaceapi.json` and adjust the values for your hackerspace.
-* Ensure that the process that'll run `update.php` has read-write-permissions to `spaceapi.json`
+* Copy `data/spaceapi_template.json.sample` to `data/spaceapi_template.json` and adjust the values for your hackerspace.
+* Ensure that the process that'll run `update.php` has read-write-permissions to `data` directory
 * Copy `.htaccess.sample` to `.htaccess`
 * Run `htpasswd -c .htpasswd apiuser`. Enter the password for `apiuser` on prompt. This creates the `.htpasswd` file in your current directory.
 * Adjust the path to `.htpasswd` in your `.htaccess` in line `AuthUserFile ...`
@@ -54,10 +54,11 @@ A bit clunky but this way you don't need a database, etc.
 
 ##Implementation
 
+
 ###update.php
 
 * Check for correct request parameters 
-* Read `spaceapi.json` and decode it
+* Read `data/space_state.json` and decode it
 * If `newValue != currentValue`
 	* Get a `write` file handle
 	* Get an exclusive lock on that file handle
