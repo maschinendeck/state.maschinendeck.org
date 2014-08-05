@@ -79,7 +79,7 @@
 	    		respond(500, "Could not get a lock on " . SPACEAPI_FILE_PATH, $fileHandle_close);
 	    	}
 	    
-	    	$encoded = json_encode($currentJSON, JSON_PRETTY_PRINT);
+	    	$encoded = json_encode($currentJSON);
 	    	if (json_last_error() != JSON_ERROR_NONE) {
 	    		respond(500, "Could not encode updated JSON.", $fileHandle_close);
 	    	}
