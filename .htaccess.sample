@@ -1,0 +1,17 @@
+# Make the .git directory inaccessible
+RedirectMatch 404 /\.git.*$
+
+#Force SSL and authentication
+<Files update.php>
+	SSLRequireSSL
+
+	AuthType Basic
+	AuthName "Authentication required"
+	AuthUserFile /path/to/current/directory/.htpasswd
+	Require valid-user
+
+</Files>
+
+
+
+
