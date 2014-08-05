@@ -24,7 +24,7 @@ If you need a *jsonp* result, specify the `callback` parameter
 
 Request
 
-	curl https://fancyspace.org/spaceapi/update.php -u username:password -d open=0
+	curl https://state.fancyspace.org/update.php -u username:password -d open=0
 	
 Response
 	
