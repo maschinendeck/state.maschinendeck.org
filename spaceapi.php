@@ -8,14 +8,10 @@
 
 	$template["state"] = $statePart;
 
-	if (isset($_GET["callback"])) {
-		//JSONP
-		header("Content-Type: text/javascript");
-		echo $_GET["callback"] . "(" . json_encode($template) . ");";
-	} else {
-		//JSON
-		header("Content-Type: application/json");
-		echo json_encode($template);
-	}
+	header("Cache-Control: no-cache", true);
+	header("Access-Control-Allow-Origin: *", true);
+	header("Content-Type: application/json");
+	
+	echo json_encode($template);
 
 ?>

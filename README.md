@@ -8,10 +8,6 @@ Get the state of the hackerspace.
 
 Returns JSON complying to the [SpaceAPI v13](http://spaceapi.net/documentation).
 
-If you need a *jsonp* result, specify the `callback` parameter
-	
-	http://state.yourspace.org/spaceapi.php?callback=jsonPCallback
-
 ###update.php
 
 `POST` to update the state of the hackerspace. You can only update one property per request.
