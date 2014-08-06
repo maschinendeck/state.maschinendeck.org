@@ -1,6 +1,9 @@
 # Make the .git directory inaccessible
 RedirectMatch 404 /\.git.*$
 
+RewriteEngine On
+RewriteRule spaceapi.json /spaceapi.php
+
 #Force SSL and authentication
 <Files update.php>
 	SSLRequireSSL
