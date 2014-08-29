@@ -43,7 +43,7 @@
 	    }
 
 	    $newOpenStatus = $_POST[OPEN_STATUS_PARAMETER];
-	    if ($newOpenStatus != false && $newOpenStatus != true) {
+	    if ($newOpenStatus != '0' && $newOpenStatus != '1') {
 	    	respond(400, "The parameter '" . OPEN_STATUS_PARAMETER . "' has to be either 0(closed) or 1(open)");
 	    }
 
