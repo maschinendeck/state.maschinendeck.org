@@ -1,8 +1,15 @@
 <?php
-
 	require("global.php");
+	require("phpMQTT.php");
 
 	define("OPEN_STATUS_PARAMETER", "open");
+	define("MQTT_TOPIC", "/maschinendeck/raum/status");
+	define("MQTT_SERVER_ADRESS", "mqtt.starletp9.de");
+	define("MQTT_SERVER_PORT", "1883");
+	define("MQTT_CLIENTID", "");
+	define("MQTT_USERNAME", "raumstatus-update.php");
+	define("MQTT_PASSWORD", "<changeme>");
+
 
 	/*
 		This script modifies the SPACE_STATE_FILE file
@@ -45,6 +52,12 @@
 	    $newOpenStatus = $_POST[OPEN_STATUS_PARAMETER];
 	    if ($newOpenStatus != '0' && $newOpenStatus != '1') {
 	    	respond(400, "The parameter '" . OPEN_STATUS_PARAMETER . "' has to be either 0(closed) or 1(open)");
+	    }
+
+	    $mqtt = new phpMQTT(MQTT_SERVER_ADRESS, MQTT_SERVER_PORT, MQTT_CLIENTID);
+	    if ($mqtt->connect(true, NULL, MQTT_USERNAME, MQTT_PASSWORD)) {
+	    	$mqtt->publish(MQTT_TOPIC, ($newOpenStatus ? "open" : "closed"), 1, true);
+	    	$mqtt->close();
 	    }
 
    	    //Read file and decode
