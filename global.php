@@ -3,6 +3,12 @@
 	define("DATA_DIR", "./data");
 	define("SPACEAPI_TEMPLATE_FILE_PATH", DATA_DIR . "/spaceapi_template.json");
 	define("SPACE_STATE_FILE", DATA_DIR . "/space_state.json");
+	define("MQTT_TOPIC", "/maschinendeck/raum/status");
+	define("MQTT_SERVER_ADRESS", "mqtt.starletp9.de");
+	define("MQTT_SERVER_PORT", "1883");
+	define("MQTT_CLIENTID", "");
+	define("MQTT_USERNAME", "raumstatus-update.php");
+	define("MQTT_PASSWORD", "<changeme>");
 
 	function defaultSpaceState() {
     	return array("open"=> false);
