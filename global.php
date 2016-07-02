@@ -6,7 +6,7 @@
 	define("MQTT_TOPIC", "/maschinendeck/raum/status");
 	define("MQTT_SERVER_ADRESS", "mqtt.starletp9.de");
 	define("MQTT_SERVER_PORT", "1883");
-	define("MQTT_CLIENTID", "");
+	define("MQTT_CLIENTID", "raumstatus-update.php");
 	define("MQTT_USERNAME", "raumstatus-update.php");
 	define("MQTT_PASSWORD", "<changeme>");
 
