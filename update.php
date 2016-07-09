@@ -1,8 +1,9 @@
 <?php
-
 	require("global.php");
+	require("phpMQTT.php");
 
 	define("OPEN_STATUS_PARAMETER", "open");
+
 
 	/*
 		This script modifies the SPACE_STATE_FILE file
@@ -46,6 +47,14 @@
 	    if ($newOpenStatus != '0' && $newOpenStatus != '1') {
 	    	respond(400, "The parameter '" . OPEN_STATUS_PARAMETER . "' has to be either 0(closed) or 1(open)");
 	    }
+
+	    if(MQTT_ENABLE) {
+		    $mqtt = new phpMQTT(MQTT_SERVER_ADRESS, MQTT_SERVER_PORT, MQTT_CLIENTID);
+		    if ($mqtt->connect(true, NULL, MQTT_USERNAME, MQTT_PASSWORD)) {
+				$mqtt->publish(MQTT_TOPIC, ($newOpenStatus ? "open" : "closed"), 1, true);
+				$mqtt->close();
+		    }
+		}
 
    	    //Read file and decode
 	    $fileContents = file_get_contents(SPACE_STATE_FILE);

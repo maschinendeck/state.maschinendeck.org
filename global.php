@@ -1,5 +1,6 @@
 <?php 
 
+include("config.php");
 	define("DATA_DIR", "./data");
 	define("SPACEAPI_TEMPLATE_FILE_PATH", DATA_DIR . "/spaceapi_template.json");
 	define("SPACE_STATE_FILE", DATA_DIR . "/space_state.json");

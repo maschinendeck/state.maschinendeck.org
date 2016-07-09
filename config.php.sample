@@ -1,0 +1,15 @@
+<?php
+// set to true to enable MQTT-Push
+define("MQTT_ENABLE", false);
+
+define("MQTT_TOPIC", "");
+define("MQTT_SERVER_ADRESS", "");
+define("MQTT_SERVER_PORT", 1883);
+
+//while the standard theoretically allows an empty cliendid
+//we had problems when it was not set, so we recomend you to set one
+define("MQTT_CLIENTID", "");
+
+//NULL = do not authenticate
+define("MQTT_USERNAME", NULL);
+define("MQTT_PASSWORD", NULL);
